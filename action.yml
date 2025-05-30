@@ -20,5 +20,5 @@ inputs:
     required: true
 
 runs:
-  using: "go"
+  using: "composite"
   main: "./repotest"   # 你的Go程序编译后的二进制文件名
