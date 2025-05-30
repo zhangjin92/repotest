@@ -22,6 +22,21 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Run action
-      run: "./repotest"
-      shell: bash
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.23'
+
+    - name: Build AI review tool
+      run: go build -o ai-review main.go
+
+    - name: Run AI review
+      env:
+        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+        OPENAI_API_KEY: ${{ inputs.OPENAI_API_KEY }}
+        PR_NUMBER: ${{ inputs.PR_NUMBER }}
+      run: ./ai-review
+
