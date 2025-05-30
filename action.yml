@@ -1,6 +1,6 @@
 name: "AI Code Review"
 description: "Run AI-based code review on pull requests using OpenAI GPT and GitHub API"
-author: "YourName"
+author: "zhang"
 
 inputs:
   GITHUB_TOKEN:
