@@ -58,7 +58,7 @@ func main() {
 	}
 
 	// 解析PR号
-	var prNumber int
+	var prNumber int = 1
 	_, err := fmt.Sscanf(prNumberStr, "%d", &prNumber)
 	if err != nil {
 		fmt.Println("Invalid PR_NUMBER:", err)
