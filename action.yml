@@ -21,4 +21,7 @@ inputs:
 
 runs:
   using: "composite"
-  main: "./repotest"   # 你的Go程序编译后的二进制文件名
+  steps:
+    - name: Run action
+      run: "./repotest"
+      shell: bash
