@@ -1,0 +1,46 @@
+name: "AI Code Review"
+description: "Run AI-based code review on pull requests using OpenAI GPT and GitHub API"
+author: "test"
+
+inputs:
+  GITHUB_TOKEN:
+    description: "GitHub token for API access"
+    required: true
+  AI_KEY:
+    description: "OpenAI API key for calling ChatGPT"
+    required: true
+  REPO_OWNER:
+    description: "Repository owner (organization or user)"
+    required: true
+  REPO_NAME:
+    description: "Repository name"
+    required: true
+  PR_NUM:
+    description: "Pull request number to review"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+     bo with:
+        go-version: '1.23'
+
+    - name: Build AI review tool
+      shell: bash
+      run: go build -o ai-review main.go
+
+    - name: Run AI review
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+        AI_KEY: ${{ inputs.AI_KEY }}
+        REPO_OWNER: ${{ inputs.REPO_OWNER }}
+        REPO_NAME: ${{ inputs.REPO_NAME }}
+        PR_NUM: ${{ inputs.PR_NUM }}
+      run: ./ai-review
+
