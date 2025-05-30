@@ -31,9 +31,11 @@ runs:
         go-version: '1.23'
 
     - name: Build AI review tool
+      shell: bash
       run: go build -o ai-review main.go
 
     - name: Run AI review
+      shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
         OPENAI_API_KEY: ${{ inputs.OPENAI_API_KEY }}
