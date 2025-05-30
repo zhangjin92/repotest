@@ -1,0 +1,24 @@
+name: "AI Code Review"
+description: "Run AI-based code review on pull requests using OpenAI GPT and GitHub API"
+author: "YourName"
+
+inputs:
+  GITHUB_TOKEN:
+    description: "GitHub token for API access"
+    required: true
+  OPENAI_API_KEY:
+    description: "OpenAI API key for calling ChatGPT"
+    required: true
+  GITHUB_REPOSITORY_OWNER:
+    description: "Repository owner (organization or user)"
+    required: true
+  GITHUB_REPOSITORY_NAME:
+    description: "Repository name"
+    required: true
+  PR_NUMBER:
+    description: "Pull request number to review"
+    required: true
+
+runs:
+  using: "go"
+  main: "./repotest"   # 你的Go程序编译后的二进制文件名
