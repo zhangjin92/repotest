@@ -1,6 +1,6 @@
 name: "AI Code Review"
 description: "Run AI-based code review on pull requests using OpenAI GPT and GitHub API"
-author: "zhang"
+author: "test"
 
 inputs:
   GITHUB_TOKEN:
@@ -20,5 +20,5 @@ inputs:
     required: true
 
 runs:
-  using: "go"
+  using: "composite"
   main: "./repotest"   # 你的Go程序编译后的二进制文件名
