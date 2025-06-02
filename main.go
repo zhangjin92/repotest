@@ -39,14 +39,15 @@ func main() {
 	repoOwner := os.Getenv("GITHUB_REPOSITORY_OWNER")
 	repoName := os.Getenv("GITHUB_REPOSITORY_NAME")
 	prNumberStr := os.Getenv("PR_NUMBER")
+	t := githubToken
 
 	fmt.Printf(`Required environment variables:
 	GITHUB_TOKEN: %v,
 	OPENAI_API_KEY: %v,
 	GITHUB_REPOSITORY_OWNER: %v,
 	GITHUB_REPOSITORY_NAME: %v, 
-	PR_NUMBER: %v`,
-		githubToken,
+	PR_NUMBER: %v\n`,
+		"tt"+t+"tt",
 		openaiKey,
 		repoOwner,
 		repoName,
