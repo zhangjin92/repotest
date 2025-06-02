@@ -40,7 +40,7 @@ func main() {
 	repoName := os.Getenv("GITHUB_REPOSITORY_NAME")
 	prNumberStr := os.Getenv("PR_NUMBER")
 
-	fmt.Println(`Required environment variables:
+	fmt.Printf(`Required environment variables:
 	GITHUB_TOKEN: %v,
 	OPENAI_API_KEY: %v,
 	GITHUB_REPOSITORY_OWNER: %v,
