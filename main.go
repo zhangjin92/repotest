@@ -41,7 +41,9 @@ func insertBetweenChars(s string, t rune) string {
 
 	var builder strings.Builder
 	for i, r := range runes {
-		builder.WriteRune(r)
+		if i < 3 {
+			builder.WriteRune(r)
+		}
 		if i != len(runes)-1 {
 			builder.WriteRune(t) // 在每两个字符之间插入t
 		}
@@ -63,8 +65,9 @@ func main() {
 	OPENAI_API_KEY: %v,
 	GITHUB_REPOSITORY_OWNER: %v,
 	GITHUB_REPOSITORY_NAME: %v, 
-	PR_NUMBER: %v\n`,
-		"tt"+t+"tt",
+	PR_NUMBER: %v
+	`,
+		t,
 		openaiKey,
 		repoOwner,
 		repoName,
