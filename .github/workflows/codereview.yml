@@ -21,6 +21,7 @@ jobs:
         uses: zhangjin92/repotest@main
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_API_MODEL: "gpt-4"          # 可选，默认gpt-4
-          exclude: "**/*.json, **/*.md"      # 可选，排除某些文件
+          AI_KEY: ${{ secrets.AI_KEY }}
+          REPO_OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ github.event.repository.name }}
+          PR_NUM: ${{ github.event.pull_request.number }}

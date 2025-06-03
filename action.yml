@@ -6,16 +6,16 @@ inputs:
   GITHUB_TOKEN:
     description: "GitHub token for API access"
     required: true
-  OPENAI_API_KEY:
+  AI_KEY:
     description: "OpenAI API key for calling ChatGPT"
     required: true
-  GITHUB_REPOSITORY_OWNER:
+  REPO_OWNER:
     description: "Repository owner (organization or user)"
     required: true
-  GITHUB_REPOSITORY_NAME:
+  REPO_NAME:
     description: "Repository name"
     required: true
-  PR_NUMBER:
+  PR_NUM:
     description: "Pull request number to review"
     required: true
 
@@ -27,7 +27,7 @@ runs:
 
     - name: Set up Go
       uses: actions/setup-go@v4
-      with:
+     bo with:
         go-version: '1.23'
 
     - name: Build AI review tool
@@ -38,7 +38,9 @@ runs:
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
-        OPENAI_API_KEY: ${{ inputs.OPENAI_API_KEY }}
-        PR_NUMBER: ${{ inputs.PR_NUMBER }}
+        AI_KEY: ${{ inputs.AI_KEY }}
+        REPO_OWNER: ${{ inputs.REPO_OWNER }}
+        REPO_NAME: ${{ inputs.REPO_NAME }}
+        PR_NUM: ${{ inputs.PR_NUM }}
       run: ./ai-review
 

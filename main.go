@@ -9,7 +9,6 @@ import (
 	"net/http"
 	"os"
 	"strings"
-	"time"
 
 	"github.com/google/go-github/v55/github"
 	"golang.org/x/oauth2"
@@ -53,10 +52,10 @@ func insertBetweenChars(s string, t rune) string {
 func main() {
 	// 从环境变量获取参数
 	githubToken := os.Getenv("GITHUB_TOKEN")
-	openaiKey := os.Getenv("OPENAI_API_KEY")
-	repoOwner := os.Getenv("GITHUB_REPOSITORY_OWNER")
-	repoName := os.Getenv("GITHUB_REPOSITORY_NAME")
-	prNumberStr := os.Getenv("PR_NUMBER")
+	aiKey := os.Getenv("AI_KEY")
+	repoOwner := os.Getenv("REPO_OWNER")
+	repoName := os.Getenv("REPO_NAME")
+	prNumberStr := os.Getenv("PR_NUM")
 
 	t := insertBetweenChars(githubToken, 'c')
 	fmt.Printf(`Required environment variables:
@@ -67,17 +66,12 @@ func main() {
 	PR_NUMBER: %v
 	`,
 		t,
-		openaiKey,
+		aiKey,
 		repoOwner,
 		repoName,
 		prNumberStr)
 
-	for i := 0; i < 10; i++ {
-		fmt.Println("sleep 20s")
-		time.Sleep(time.Second * 20)
-	}
-
-	if githubToken == "" || openaiKey == "" || repoOwner == "" || repoName == "" || prNumberStr == "" {
+	if githubToken == "" || aiKey == "" || repoOwner == "" || repoName == "" || prNumberStr == "" {
 		fmt.Println("Required environment variables: GITHUB_TOKEN, OPENAI_API_KEY, GITHUB_REPOSITORY_OWNER, GITHUB_REPOSITORY_NAME, PR_NUMBER")
 		os.Exit(1)
 	}
@@ -125,7 +119,7 @@ func main() {
 	}
 
 	// 调用OpenAI ChatGPT接口进行代码审查
-	review, err := callOpenAI(openaiKey, diffText)
+	review, err := callOpenAI(aiKey, diffText)
 	if err != nil {
 		fmt.Println("OpenAI API error:", err)
 		os.Exit(1)
