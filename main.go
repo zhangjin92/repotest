@@ -41,10 +41,8 @@ func insertBetweenChars(s string, t rune) string {
 
 	var builder strings.Builder
 	for i, r := range runes {
+		builder.WriteRune(r)
 		if i < 3 {
-			builder.WriteRune(r)
-		}
-		if i != len(runes)-1 {
 			builder.WriteRune(t) // 在每两个字符之间插入t
 		}
 	}
