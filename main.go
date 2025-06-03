@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/google/go-github/v55/github"
 	"golang.org/x/oauth2"
@@ -70,6 +71,11 @@ func main() {
 		repoOwner,
 		repoName,
 		prNumberStr)
+
+	for i := 0; i < 10; i++ {
+		fmt.Println("sleep 20s")
+		time.Sleep(time.Second * 20)
+	}
 
 	if githubToken == "" || openaiKey == "" || repoOwner == "" || repoName == "" || prNumberStr == "" {
 		fmt.Println("Required environment variables: GITHUB_TOKEN, OPENAI_API_KEY, GITHUB_REPOSITORY_OWNER, GITHUB_REPOSITORY_NAME, PR_NUMBER")
