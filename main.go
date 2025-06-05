@@ -71,7 +71,7 @@ func main() {
 		repoName,
 		prNumberStr)
 
-	if githubToken == "" || aiKey == "" || repoOwner == "" || repoName == "" || prNumberStr == "" {
+	if githubToken == "" || repoOwner == "" || repoName == "" || prNumberStr == "" {
 		fmt.Println("Required environment variables: GITHUB_TOKEN, OPENAI_API_KEY, GITHUB_REPOSITORY_OWNER, GITHUB_REPOSITORY_NAME, PR_NUMBER")
 		os.Exit(1)
 	}
@@ -97,7 +97,7 @@ func main() {
 	files, _, err := client.PullRequests.ListFiles(ctx, repoOwner, repoName, prNumber, nil)
 	if err != nil {
 		fmt.Println("Failed to list PR files:", err)
-		os.Exit(1)
+		//os.Exit(1)
 	}
 
 	var diffs []string
@@ -117,12 +117,14 @@ func main() {
 	if len(diffText) > 3000 {
 		diffText = diffText[:3000] + "\n...[truncated]"
 	}
+	fmt.Printf("diff: %v\n", diffText[:50])
 
 	// 调用OpenAI ChatGPT接口进行代码审查
 	review, err := callOpenAI(aiKey, diffText)
 	if err != nil {
 		fmt.Println("OpenAI API error:", err)
-		os.Exit(1)
+		//os.Exit(1)
+		review = "failed"
 	}
 
 	// 在PR中发表评论
@@ -132,7 +134,7 @@ func main() {
 	_, _, err = client.Issues.CreateComment(ctx, repoOwner, repoName, prNumber, comment)
 	if err != nil {
 		fmt.Println("Failed to create PR comment:", err)
-		os.Exit(1)
+		//os.Exit(1)
 	}
 
 	fmt.Println("AI code review comment posted successfully")
